@@ -15,4 +15,4 @@ const pool = mysql.createPool({
 // Convert pool.promise() to use promises
 const promisePool = pool.promise();
 
-export default promisePool;
+module.exports = promisePool;
