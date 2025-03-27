@@ -1,6 +1,7 @@
 import express from "express";
+import authRoutes from "./routes/authRoutes.js";
+import protectedRoutes from "./routes/protected.js";
 import "dotenv/config";
-import authRoutes from "./routes/auth.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api", protectedRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
