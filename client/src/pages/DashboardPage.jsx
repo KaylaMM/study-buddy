@@ -33,7 +33,6 @@ const DashboardPage = () => {
       </header>
       <main className="dashboard-content">
         <p>Your email: {user.email}</p>
-        {/* Add more dashboard content here */}
       </main>
     </div>
   );
