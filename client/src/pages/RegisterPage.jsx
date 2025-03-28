@@ -4,13 +4,14 @@ import axios from "axios";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const serverURL = import.meta.env.VITE_API_URL;
 
   const handleRegister = async (formData) => {
     try {
       const { ...registrationData } = formData;
 
       const response = await axios.post(
-        "http://localhost:8080/api/auth/register",
+        `${serverURL}/api/auth/register`,
         registrationData
       );
 

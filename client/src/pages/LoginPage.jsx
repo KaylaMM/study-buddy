@@ -4,11 +4,12 @@ import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const serverURL = import.meta.env.VITE_API_URL;
 
   const handleLogin = async (formData) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        `${serverURL}/api/auth/login`,
         formData
       );
 
