@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const RegisterForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ const RegisterForm = ({ onSubmit }) => {
       ...prev,
       [name]: value,
     }));
-    // Clear error when user starts typing
+
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -154,8 +154,8 @@ const RegisterForm = ({ onSubmit }) => {
   );
 };
 
-// RegisterForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
+RegisterForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default RegisterForm;

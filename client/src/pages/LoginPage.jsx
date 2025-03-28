@@ -13,26 +13,13 @@ const LoginPage = () => {
         formData
       );
 
-      // const response = await fetch("http://localhost:8080/api/auth/login", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(formData),
-      //   credentials: "include",
-      // });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Login failed");
-      }
-
-      const data = await response.json();
+      const { data } = response;
       localStorage.setItem("user", JSON.stringify(data.user));
-
       navigate("/dashboard");
     } catch (error) {
-      throw new Error(error.message || "Failed to login. Please try again.");
+      throw new Error(
+        error.response?.data?.message || "Failed to login. Please try again."
+      );
     }
   };
 

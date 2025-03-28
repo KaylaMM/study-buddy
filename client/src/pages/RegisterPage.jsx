@@ -15,25 +15,13 @@ const RegisterPage = () => {
         registrationData
       );
 
-      // const response = await fetch("http://localhost:5000/api/auth/register", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(registrationData),
-      // });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Registration failed");
-      }
-
-      const data = await response.json();
+      const { data } = response;
       localStorage.setItem("user", JSON.stringify(data.user));
-
       navigate("/dashboard");
     } catch (error) {
-      throw new Error(error.message || "Failed to register. Please try again.");
+      throw new Error(
+        error.response?.data?.message || "Failed to register. Please try again."
+      );
     }
   };
 
