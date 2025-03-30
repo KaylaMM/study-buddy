@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/authRoutes.js";
 import protectedRoutes from "./routes/protected.js";
+import flashcardRoutes from "./routes/flashcardRoutes.js";
 import cors from "cors";
 import "dotenv/config";
 
@@ -13,6 +14,7 @@ app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api", protectedRoutes);
+app.use("/api", flashcardRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
