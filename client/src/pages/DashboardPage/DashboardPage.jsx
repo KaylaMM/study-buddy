@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Flashcard from "../components/Flashcard/Flashcard";
-import CreateDeckForm from "../components/CreateDeckForm/CreateDeckForm";
-import { flashcardService } from "../services/flashcardService";
-import { deckService } from "../services/deckService";
+import Flashcard from "../../components/Flashcard/Flashcard";
+import CreateDeckForm from "../../components/CreateDeckForm/CreateDeckForm";
+import FlashcardForm from "../../components/FlashcardForm/FlashcardForm";
+import { flashcardService } from "../../services/flashcardService";
+import { deckService } from "../../services/deckService";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
@@ -11,13 +12,13 @@ const DashboardPage = () => {
   const [decks, setDecks] = useState([]);
   const [selectedDeck, setSelectedDeck] = useState(null);
   const [isCreatingDeck, setIsCreatingDeck] = useState(false);
+  const [isCreatingFlashcard, setIsCreatingFlashcard] = useState(false);
   const navigate = useNavigate();
 
-  // Sample flashcard data for demonstration
   const sampleFlashcard = {
-    id: "sample",
-    front: "Sample Question",
-    back: "Sample Answer",
+    id: 0,
+    frontContent: "Sample Question",
+    backContent: "Sample Answer",
     deckId: null,
     isSample: true,
   };
@@ -36,7 +37,7 @@ const DashboardPage = () => {
       try {
         const data = await deckService.getDecks();
         setDecks(data);
-        // Select the first deck by default if available
+
         if (data.length > 0) {
           setSelectedDeck(data[0]);
         }
@@ -94,19 +95,10 @@ const DashboardPage = () => {
 
   const handleCreateDeck = async (deckData) => {
     try {
-      // Create the new deck
       const newDeck = await deckService.createDeck(deckData);
-
-      // Update the decks state with the new deck
       setDecks((prevDecks) => [...prevDecks, newDeck]);
-
-      // Select the newly created deck
       setSelectedDeck(newDeck);
-
-      // Close the create deck form
       setIsCreatingDeck(false);
-
-      // Fetch flashcards for the new deck
       const flashcards = await flashcardService.getFlashcardsByDeck(newDeck.id);
       setFlashcards(flashcards);
     } catch (error) {
@@ -134,8 +126,11 @@ const DashboardPage = () => {
           <div className="decks-header">
             <h2>Your Decks</h2>
             <button
+              type="button"
               className="create-deck-button"
-              onClick={() => setIsCreatingDeck(true)}
+              onClick={() => {
+                setIsCreatingDeck(true);
+              }}
             >
               Create New Deck
             </button>
@@ -164,19 +159,43 @@ const DashboardPage = () => {
         </div>
 
         <div className="flashcards-section">
-          <h2>
-            {selectedDeck
-              ? `Flashcards in ${selectedDeck.title}`
-              : "Create a deck to get started!"}
-          </h2>
+          <div className="flashcards-header">
+            <h2>
+              {selectedDeck
+                ? `Flashcards in ${selectedDeck.title}`
+                : "Create a deck to get started!"}
+            </h2>
+            {selectedDeck && (
+              <button
+                type="button"
+                className="create-flashcard-button"
+                onClick={() => setIsCreatingFlashcard(true)}
+              >
+                Create New Flashcard
+              </button>
+            )}
+          </div>
           <div className="flashcards-container">
+            {selectedDeck && isCreatingFlashcard && (
+              <FlashcardForm
+                deckId={selectedDeck.id}
+                onUpdate={() => {
+                  handleFlashcardUpdate();
+                  setIsCreatingFlashcard(false);
+                }}
+                onCancel={() => setIsCreatingFlashcard(false)}
+              />
+            )}
             {selectedDeck &&
+              !isCreatingFlashcard &&
               (flashcards.length > 0 ? (
                 flashcards.map((flashcard) => (
                   <Flashcard
                     key={flashcard.id}
                     id={flashcard.id}
                     deckId={selectedDeck.id}
+                    frontContent={flashcard.frontContent}
+                    backContent={flashcard.backContent}
                     onUpdate={handleFlashcardUpdate}
                     onDelete={() => handleFlashcardDelete(flashcard.id)}
                   />
@@ -187,13 +206,13 @@ const DashboardPage = () => {
                     No flashcards yet. Here's an example:
                   </p>
                   <Flashcard
-                    key={sampleFlashcard.id}
-                    id={sampleFlashcard.id}
+                    key="sample"
+                    id={0}
                     deckId={selectedDeck.id}
-                    front={sampleFlashcard.front}
-                    back={sampleFlashcard.back}
+                    frontContent={sampleFlashcard.frontContent}
+                    backContent={sampleFlashcard.backContent}
                     isSample={true}
-                    onUpdate={handleFlashcardUpdate}
+                    onUpdate={() => {}}
                     onDelete={() => {}}
                   />
                 </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "/api";
+const API_URL = `${import.meta.env.VITE_API_URL}/api`;
 
 const getAuthToken = () => {
   const token = localStorage.getItem("token");
@@ -39,30 +39,57 @@ axiosInstance.interceptors.response.use(
 export const flashcardService = {
   getFlashcardsByDeck: async (deckId) => {
     const response = await axiosInstance.get(
-      `${API_URL}/decks/${deckId}/flashcards`
+      `${API_URL}/flashcards/decks/${deckId}/flashcards`
     );
-    return response.data;
+    return response.data.map((flashcard) => ({
+      ...flashcard,
+      frontContent: flashcard.front_content,
+      backContent: flashcard.back_content,
+    }));
   },
 
   getFlashcardById: async (id) => {
     const response = await axiosInstance.get(`${API_URL}/flashcards/${id}`);
-    return response.data;
+    const flashcard = response.data;
+    return {
+      ...flashcard,
+      frontContent: flashcard.front_content,
+      backContent: flashcard.back_content,
+    };
   },
 
   createFlashcard: async (deckId, flashcardData) => {
+    const serverData = {
+      front_content: flashcardData.frontContent,
+      back_content: flashcardData.backContent,
+    };
     const response = await axiosInstance.post(
-      `${API_URL}/decks/${deckId}/flashcards`,
-      flashcardData
+      `${API_URL}/flashcards/decks/${deckId}/flashcards`,
+      serverData
     );
-    return response.data;
+    const flashcard = response.data;
+    return {
+      ...flashcard,
+      frontContent: flashcard.front_content,
+      backContent: flashcard.back_content,
+    };
   },
 
   updateFlashcard: async (id, flashcardData) => {
+    const serverData = {
+      front_content: flashcardData.frontContent,
+      back_content: flashcardData.backContent,
+    };
     const response = await axiosInstance.put(
       `${API_URL}/flashcards/${id}`,
-      flashcardData
+      serverData
     );
-    return response.data;
+    const flashcard = response.data;
+    return {
+      ...flashcard,
+      frontContent: flashcard.front_content,
+      backContent: flashcard.back_content,
+    };
   },
 
   deleteFlashcard: async (id) => {

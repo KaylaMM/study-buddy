@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { flashcardService } from "../../services/flashcardService";
-import FlashcardForm from "./FlashcardForm";
+import FlashcardForm from "../FlashcardForm/FlashcardForm";
 
 const Flashcard = ({
   deckId,

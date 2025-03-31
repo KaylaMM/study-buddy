@@ -1,6 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./CreateDeckForm.scss";
 
 const CreateDeckForm = ({ onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({

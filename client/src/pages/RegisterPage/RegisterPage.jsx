@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import RegisterForm from "../components/RegisterForm/RegisterForm";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import axios from "axios";
 
 const RegisterPage = () => {
