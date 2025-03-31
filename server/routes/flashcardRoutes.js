@@ -4,6 +4,27 @@ import jwtAuth from "../middleware/jwtAuth.js";
 
 const router = express.Router();
 
+router.post("/decks", jwtAuth, async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    const userId = req.user.userId; // This comes from the jwtAuth middleware
+
+    const [result] = await pool.query(
+      "INSERT INTO decks (user_id, title, description) VALUES (?, ?, ?)",
+      [userId, title, description]
+    );
+
+    const [newDeck] = await pool.query("SELECT * FROM decks WHERE id = ?", [
+      result.insertId,
+    ]);
+
+    res.status(201).json(newDeck[0]);
+  } catch (error) {
+    console.error("Error creating deck:", error);
+    res.status(500).json({ message: "Error creating deck" });
+  }
+});
+
 router.get("/decks/:deckId/flashcards", jwtAuth, async (req, res) => {
   try {
     const { deckId } = req.params;
