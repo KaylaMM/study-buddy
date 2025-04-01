@@ -39,7 +39,6 @@ const DashboardPage = () => {
       try {
         const data = await deckService.getDecks();
         setDecks(data);
-
         if (data.length > 0) {
           setSelectedDeck(data[0]);
         }
@@ -101,8 +100,7 @@ const DashboardPage = () => {
       setDecks((prevDecks) => [...prevDecks, newDeck]);
       setSelectedDeck(newDeck);
       setIsCreatingDeck(false);
-      const flashcards = await flashcardService.getFlashcardsByDeck(newDeck.id);
-      setFlashcards(flashcards);
+      setFlashcards([]);
     } catch (error) {
       console.error("Error creating deck:", error);
       throw new Error(error.response?.data?.message || "Failed to create deck");

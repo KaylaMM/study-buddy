@@ -26,6 +26,20 @@ router.post("/signup", async (req, res) => {
       [username, email, hashedPassword]
     );
 
+    const [deckResult] = await pool.query(
+      "INSERT INTO decks (user_id, title, description) VALUES (?, ?, ?)",
+      [
+        result.insertId,
+        "Example Deck",
+        "A sample deck to help you get started!",
+      ]
+    );
+
+    await pool.query(
+      "INSERT INTO flashcards (deck_id, front_content, back_content) VALUES (?, ?, ?)",
+      [deckResult.insertId, "What is the capital of France?", "Paris"]
+    );
+
     const token = jwt.sign(
       { userId: result.insertId },
       process.env.JWT_SECRET,

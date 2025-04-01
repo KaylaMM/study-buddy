@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import RegisterForm from "../../components/RegisterForm/RegisterForm";
+import SignupForm from "../../components/SignupForm/SignupForm";
 import axios from "axios";
 
-const RegisterPage = () => {
+const SignupPage = () => {
   const navigate = useNavigate();
   const serverURL = import.meta.env.VITE_API_URL;
 
@@ -11,7 +11,7 @@ const RegisterPage = () => {
       const { ...registrationData } = formData;
 
       const response = await axios.post(
-        `${serverURL}/api/auth/register`,
+        `${serverURL}/api/auth/signup`,
         registrationData
       );
 
@@ -29,7 +29,7 @@ const RegisterPage = () => {
   return (
     <div className="auth-page">
       <div className="auth-content">
-        <RegisterForm onSubmit={handleRegister} />
+        <SignupForm onSubmit={handleRegister} />
         <div className="auth-links">
           <p>
             Already have an account?{" "}
@@ -43,4 +43,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default SignupPage;
