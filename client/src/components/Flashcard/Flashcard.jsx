@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { flashcardService } from "../../services/flashcardService";
 import FlashcardForm from "../FlashcardForm/FlashcardForm";
+import "./Flashcard.scss";
 
 const Flashcard = ({
   deckId,
@@ -47,32 +48,31 @@ const Flashcard = ({
   return (
     <div className="flashcard">
       <div
-        className={`flashcard-content ${isFlipped ? "flipped" : ""}`}
+        className={`flashcard__content ${
+          isFlipped ? "flashcard__content--flipped" : ""
+        }`}
         onClick={() => setIsFlipped(!isFlipped)}
       >
-        <div className="flashcard-front">
+        <div className="flashcard__front">
           <p>{frontContent}</p>
         </div>
-        <div className="flashcard-back">
+        <div className="flashcard__back">
           <p>{backContent}</p>
         </div>
       </div>
-      <div className="flashcard-actions">
-        <button
-          type="button"
-          className="edit-button"
+      <div className="flashcard__actions">
+        <i
+          className="fas fa-pencil-alt flashcard__icon flashcard__icon--edit"
           onClick={() => setIsEditing(true)}
-        >
-          Edit
-        </button>
-        <button
-          type="button"
-          className="delete-button"
+        />
+        <i
+          className="fas fa-trash-alt flashcard__icon flashcard__icon--delete"
           onClick={handleDelete}
-          disabled={isLoading}
-        >
-          Delete
-        </button>
+          style={{
+            opacity: isLoading ? 0.6 : 1,
+            cursor: isLoading ? "not-allowed" : "pointer",
+          }}
+        />
       </div>
     </div>
   );

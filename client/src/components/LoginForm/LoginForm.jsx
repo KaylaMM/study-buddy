@@ -1,7 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import "./LoginForm.scss";
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, onClose }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -63,44 +64,68 @@ const LoginForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="auth-form-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+    <div className="login-form">
+      <button
+        type="button"
+        className="login-form__close"
+        onClick={onClose}
+        aria-label="Close login form"
+      >
+        ×
+      </button>
+      <h2 className="login-form__title">Login</h2>
+      <form onSubmit={handleSubmit} className="login-form__container">
+        <div className="login-form__group">
+          <label htmlFor="email" className="login-form__label">
+            Email
+          </label>
           <input
             type="email"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={errors.email ? "error" : ""}
+            className={`login-form__input ${
+              errors.email ? "login-form__input--error" : ""
+            }`}
             placeholder="Enter your email"
           />
           {errors.email && (
-            <span className="error-message">{errors.email}</span>
+            <span className="login-form__error">{errors.email}</span>
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div className="login-form__group">
+          <label htmlFor="password" className="login-form__label">
+            Password
+          </label>
           <input
             type="password"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className={errors.password ? "error" : ""}
+            className={`login-form__input ${
+              errors.password ? "login-form__input--error" : ""
+            }`}
             placeholder="Enter your password"
           />
           {errors.password && (
-            <span className="error-message">{errors.password}</span>
+            <span className="login-form__error">{errors.password}</span>
           )}
         </div>
 
-        {errors.submit && <div className="error-message">{errors.submit}</div>}
+        {errors.submit && (
+          <div className="login-form__error login-form__error--submit">
+            {errors.submit}
+          </div>
+        )}
 
-        <button type="submit" className="submit-button" disabled={isLoading}>
+        <button
+          type="submit"
+          className="login-form__button"
+          disabled={isLoading}
+        >
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
@@ -110,6 +135,7 @@ const LoginForm = ({ onSubmit }) => {
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

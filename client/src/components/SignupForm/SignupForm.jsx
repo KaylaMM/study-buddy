@@ -1,7 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import "./SignupForm.scss";
 
-const SignupForm = ({ onSubmit }) => {
+const SignupForm = ({ onSubmit, onClose }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -77,77 +78,108 @@ const SignupForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="auth-form-container">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
+    <div className="signup-form">
+      <button
+        className="signup-form__close"
+        onClick={onClose}
+        aria-label="Close signup form"
+      >
+        ×
+      </button>
+      <h2 className="signup-form__title">Signup</h2>
+      <form onSubmit={handleSubmit} className="signup-form__container">
+        <div className="signup-form__group">
+          <label htmlFor="username" className="signup-form__label">
+            Username
+          </label>
           <input
             type="text"
             id="username"
             name="username"
             value={formData.username}
             onChange={handleChange}
-            className={errors.username ? "error" : ""}
+            className={`signup-form__input ${
+              errors.username ? "signup-form__input--error" : ""
+            }`}
             placeholder="Choose a username"
           />
           {errors.username && (
-            <span className="error-message">{errors.username}</span>
+            <span className="signup-form__error">{errors.username}</span>
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+        <div className="signup-form__group">
+          <label htmlFor="email" className="signup-form__label">
+            Email
+          </label>
           <input
             type="email"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={errors.email ? "error" : ""}
+            className={`signup-form__input ${
+              errors.email ? "signup-form__input--error" : ""
+            }`}
             placeholder="Enter your email"
           />
           {errors.email && (
-            <span className="error-message">{errors.email}</span>
+            <span className="signup-form__error">{errors.email}</span>
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div className="signup-form__group">
+          <label htmlFor="password" className="signup-form__label">
+            Password
+          </label>
           <input
             type="password"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className={errors.password ? "error" : ""}
+            className={`signup-form__input ${
+              errors.password ? "signup-form__input--error" : ""
+            }`}
             placeholder="Create a password"
           />
           {errors.password && (
-            <span className="error-message">{errors.password}</span>
+            <span className="signup-form__error">{errors.password}</span>
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+        <div className="signup-form__group">
+          <label htmlFor="confirmPassword" className="signup-form__label">
+            Confirm Password
+          </label>
           <input
             type="password"
             id="confirmPassword"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className={errors.confirmPassword ? "error" : ""}
+            className={`signup-form__input ${
+              errors.confirmPassword ? "signup-form__input--error" : ""
+            }`}
             placeholder="Confirm your password"
           />
           {errors.confirmPassword && (
-            <span className="error-message">{errors.confirmPassword}</span>
+            <span className="signup-form__error">{errors.confirmPassword}</span>
           )}
         </div>
 
-        {errors.submit && <div className="error-message">{errors.submit}</div>}
+        {errors.submit && (
+          <div className="signup-form__error signup-form__error--submit">
+            {errors.submit}
+          </div>
+        )}
 
-        <button type="submit" className="submit-button" disabled={isLoading}>
-          {isLoading ? "Creating Account..." : "Register"}
+        <button
+          type="submit"
+          className="signup-form__button"
+          disabled={isLoading}
+        >
+          {isLoading ? "Creating Account..." : "Signup"}
         </button>
       </form>
     </div>
@@ -156,6 +188,7 @@ const SignupForm = ({ onSubmit }) => {
 
 SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default SignupForm;
