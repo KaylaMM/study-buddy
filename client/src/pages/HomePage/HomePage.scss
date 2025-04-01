@@ -1,0 +1,166 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/global" as *;
+
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../assets/images/background-image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 2rem;
+
+  &__content {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  &__logo {
+    margin-bottom: 2rem;
+  }
+
+  &__logo-text {
+    color: $primary-red;
+    margin-bottom: 1rem;
+  }
+
+  &__logo-image {
+    width: 90%;
+    height: 90%;
+    align-items: center;
+    padding: 4rem;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  &__button {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+
+    &--login {
+      background-color: $white;
+      color: $primary-red;
+      border: 2px solid $primary-red-hover;
+
+      &:hover {
+        background-color: $primary-peach;
+        color: $primary-white;
+        transform: translateY(-1px);
+      }
+    }
+
+    &--signup {
+      background-color: $primary-red;
+      color: $primary-white;
+      border: 2px solid $primary-red-hover;
+
+      &:hover {
+        background-color: $primary-peach;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $overlay-black;
+    backdrop-filter: blur(4px);
+    z-index: -1;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 1rem;
+    animation: modalFadeIn 0.3s ease-out;
+  }
+
+  &__error {
+    background-color: $error-red-lighter;
+    color: $error-red;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    border: 1px solid $error-red-border;
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@include mobile {
+  .home-page {
+    padding: 1rem;
+
+    &__logo-text {
+      font-size: 2.5rem;
+    }
+
+    &__buttons {
+      flex-direction: column;
+    }
+
+    &__button {
+      width: 100%;
+    }
+  }
+}
+
+@include tablet {
+  .home-page {
+    padding: 2rem;
+
+    &__logo-text {
+      font-size: 3rem;
+    }
+  }
+}
+
+@include desktop {
+  .home-page {
+    padding: 3rem;
+
+    &__logo-text {
+      font-size: 3.5rem;
+    }
+  }
+}

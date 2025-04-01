@@ -78,7 +78,9 @@ StudyBuddy leverages ChatGPT’s API to generate flashcard content, provide expl
 - [ ] 2.1: Create MySQL tables for flashcards & decks.
 - [ ] 2.2: Build CRUD routes for flashcards.
 - [ ] 2.3: Develop React components for flashcard UI.
-- [ ] 2.4: Add frontend validation.
+- [ ] 2.4: Incorporate styling.
+- [ ] 2.5: Create NavBar & SideBar with styling.
+- [ ] 2.6: Create DeckPage & FlashcardPages with styling.
 
 ### **Epic 3: ChatGPT Integration**
 

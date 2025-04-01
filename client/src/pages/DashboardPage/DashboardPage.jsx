@@ -5,7 +5,7 @@ import CreateDeckForm from "../../components/CreateDeckForm/CreateDeckForm";
 import FlashcardForm from "../../components/FlashcardForm/FlashcardForm";
 import { flashcardService } from "../../services/flashcardService";
 import { deckService } from "../../services/deckService";
-import "./DashboardPage.css";
+import "./DashboardPage.scss";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
@@ -70,7 +70,7 @@ const DashboardPage = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   const handleFlashcardUpdate = async () => {
@@ -155,22 +155,22 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="dashboard-page">
-      <header className="dashboard-header">
+    <div className="dashboard">
+      <header className="dashboard__header">
         <h1>Welcome, {user.username}!</h1>
-        <button onClick={handleLogout} className="logout-button">
+        <button onClick={handleLogout} className="dashboard__logout-btn">
           Logout
         </button>
       </header>
-      <main className="dashboard-content">
+      <main className="dashboard__content">
         <p>Your email: {user.email}</p>
 
-        <div className="decks-section">
-          <div className="decks-header">
+        <div className="dashboard__decks">
+          <div className="dashboard__decks-header">
             <h2>Your Decks</h2>
             <button
               type="button"
-              className="create-deck-button"
+              className="dashboard__create-deck-btn"
               onClick={() => {
                 setIsCreatingDeck(true);
               }}
@@ -179,55 +179,57 @@ const DashboardPage = () => {
             </button>
           </div>
 
-          {isCreatingDeck ? (
+          <div className="dashboard__decks-list">
+            {decks.map((deck) => (
+              <div key={deck.id} className="dashboard__deck-item">
+                {editingDeck?.id === deck.id ? (
+                  <CreateDeckForm
+                    initialData={{ title: deck.title }}
+                    onSubmit={handleDeckUpdate}
+                    onCancel={() => setEditingDeck(null)}
+                  />
+                ) : (
+                  <>
+                    <button
+                      className={`dashboard__deck-btn ${
+                        selectedDeck?.id === deck.id
+                          ? "dashboard__deck-btn--selected"
+                          : ""
+                      }`}
+                      onClick={() => handleDeckSelect(deck)}
+                    >
+                      {deck.title}
+                    </button>
+                    <div className="dashboard__deck-actions">
+                      <button
+                        className="dashboard__deck-btn dashboard__deck-btn--edit"
+                        onClick={() => setEditingDeck(deck)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="dashboard__deck-btn dashboard__deck-btn--delete"
+                        onClick={() => handleDeckDelete(deck.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {isCreatingDeck && (
             <CreateDeckForm
               onSubmit={handleCreateDeck}
               onCancel={() => setIsCreatingDeck(false)}
             />
-          ) : (
-            <div className="decks-list">
-              {decks.map((deck) => (
-                <div key={deck.id} className="deck-item">
-                  {editingDeck?.id === deck.id ? (
-                    <CreateDeckForm
-                      initialData={{ title: deck.title }}
-                      onSubmit={handleDeckUpdate}
-                      onCancel={() => setEditingDeck(null)}
-                    />
-                  ) : (
-                    <>
-                      <button
-                        className={`deck-button ${
-                          selectedDeck?.id === deck.id ? "selected" : ""
-                        }`}
-                        onClick={() => handleDeckSelect(deck)}
-                      >
-                        {deck.title}
-                      </button>
-                      <div className="deck-actions">
-                        <button
-                          className="edit-deck-button"
-                          onClick={() => setEditingDeck(deck)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="delete-deck-button"
-                          onClick={() => handleDeckDelete(deck.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
           )}
         </div>
 
-        <div className="flashcards-section">
-          <div className="flashcards-header">
+        <div className="dashboard__flashcards">
+          <div className="dashboard__flashcards-header">
             <h2>
               {selectedDeck
                 ? `Flashcards in ${selectedDeck.title}`
@@ -236,26 +238,15 @@ const DashboardPage = () => {
             {selectedDeck && (
               <button
                 type="button"
-                className="create-flashcard-button"
+                className="dashboard__create-flashcard-btn"
                 onClick={() => setIsCreatingFlashcard(true)}
               >
                 Create New Flashcard
               </button>
             )}
           </div>
-          <div className="flashcards-container">
-            {selectedDeck && isCreatingFlashcard && (
-              <FlashcardForm
-                deckId={selectedDeck.id}
-                onUpdate={() => {
-                  handleFlashcardUpdate();
-                  setIsCreatingFlashcard(false);
-                }}
-                onCancel={() => setIsCreatingFlashcard(false)}
-              />
-            )}
+          <div className="dashboard__flashcards-container">
             {selectedDeck &&
-              !isCreatingFlashcard &&
               (flashcards.length > 0 ? (
                 flashcards.map((flashcard) => (
                   <Flashcard
@@ -269,8 +260,8 @@ const DashboardPage = () => {
                   />
                 ))
               ) : (
-                <div className="sample-flashcard-container">
-                  <p className="sample-flashcard-text">
+                <div className="dashboard__sample-flashcard">
+                  <p className="dashboard__sample-flashcard-text">
                     No flashcards yet. Here's an example:
                   </p>
                   <Flashcard
@@ -286,6 +277,17 @@ const DashboardPage = () => {
                 </div>
               ))}
           </div>
+
+          {selectedDeck && isCreatingFlashcard && (
+            <FlashcardForm
+              deckId={selectedDeck.id}
+              onUpdate={() => {
+                handleFlashcardUpdate();
+                setIsCreatingFlashcard(false);
+              }}
+              onCancel={() => setIsCreatingFlashcard(false)}
+            />
+          )}
         </div>
       </main>
     </div>

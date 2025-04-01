@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { flashcardService } from "../../services/flashcardService";
+import "./FlashcardForm.scss";
 
 const FlashcardForm = ({ deckId, onUpdate, onCancel, id, initialData }) => {
   const [formData, setFormData] = useState(
@@ -69,50 +70,83 @@ const FlashcardForm = ({ deckId, onUpdate, onCancel, id, initialData }) => {
   };
 
   return (
-    <div className="flashcard-form">
-      <h3>{id ? "Edit Flashcard" : "Create New Flashcard"}</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="frontContent">Front</label>
-          <textarea
-            id="frontContent"
-            name="frontContent"
-            value={formData.frontContent}
-            onChange={handleChange}
-            className={errors.frontContent ? "error" : ""}
-            placeholder="Enter the front content"
-          />
-          {errors.frontContent && (
-            <span className="error-message">{errors.frontContent}</span>
-          )}
-        </div>
+    <div className="flashcard-form-modal">
+      <div className="flashcard-form-modal__overlay" onClick={onCancel} />
+      <div className="flashcard-form-modal__container">
+        <div className="flashcard-form">
+          <h3 className="flashcard-form__title">
+            {id ? "Edit Flashcard" : "Create New Flashcard"}
+          </h3>
+          <form onSubmit={handleSubmit} className="flashcard-form__form">
+            <div className="flashcard-form__group">
+              <label htmlFor="frontContent" className="flashcard-form__label">
+                Front
+              </label>
+              <textarea
+                id="frontContent"
+                name="frontContent"
+                value={formData.frontContent}
+                onChange={handleChange}
+                className={`flashcard-form__textarea ${
+                  errors.frontContent ? "flashcard-form__textarea--error" : ""
+                }`}
+                placeholder="Enter the question or front content"
+              />
+              {errors.frontContent && (
+                <span className="flashcard-form__error">
+                  {errors.frontContent}
+                </span>
+              )}
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="backContent">Back</label>
-          <textarea
-            id="backContent"
-            name="backContent"
-            value={formData.backContent}
-            onChange={handleChange}
-            className={errors.backContent ? "error" : ""}
-            placeholder="Enter the back content"
-          />
-          {errors.backContent && (
-            <span className="error-message">{errors.backContent}</span>
-          )}
-        </div>
+            <div className="flashcard-form__group">
+              <label htmlFor="backContent" className="flashcard-form__label">
+                Back
+              </label>
+              <textarea
+                id="backContent"
+                name="backContent"
+                value={formData.backContent}
+                onChange={handleChange}
+                className={`flashcard-form__textarea ${
+                  errors.backContent ? "flashcard-form__textarea--error" : ""
+                }`}
+                placeholder="Enter the answer or back content"
+              />
+              {errors.backContent && (
+                <span className="flashcard-form__error">
+                  {errors.backContent}
+                </span>
+              )}
+            </div>
 
-        {errors.submit && <div className="error-message">{errors.submit}</div>}
+            {errors.submit && (
+              <div className="flashcard-form__error flashcard-form__error--submit">
+                {errors.submit}
+              </div>
+            )}
 
-        <div className="button-group">
-          <button type="submit" className="submit-button" disabled={isLoading}>
-            {isLoading ? "Saving..." : "Save"}
-          </button>
-          <button type="button" className="cancel-button" onClick={onCancel}>
-            Cancel
-          </button>
+            <div className="flashcard-form__button-group">
+              <button
+                type="submit"
+                className={`flashcard-form__button flashcard-form__button--submit ${
+                  isLoading ? "flashcard-form__button--loading" : ""
+                }`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Saving..." : "Save"}
+              </button>
+              <button
+                type="button"
+                className="flashcard-form__button flashcard-form__button--cancel"
+                onClick={onCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
