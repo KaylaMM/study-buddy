@@ -5,6 +5,7 @@ import CreateDeckForm from "../../components/CreateDeckForm/CreateDeckForm";
 import FlashcardForm from "../../components/FlashcardForm/FlashcardForm";
 import { flashcardService } from "../../services/flashcardService";
 import { deckService } from "../../services/deckService";
+import "./DashboardPage.css";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
@@ -13,6 +14,7 @@ const DashboardPage = () => {
   const [selectedDeck, setSelectedDeck] = useState(null);
   const [isCreatingDeck, setIsCreatingDeck] = useState(false);
   const [isCreatingFlashcard, setIsCreatingFlashcard] = useState(false);
+  const [editingDeck, setEditingDeck] = useState(null);
   const navigate = useNavigate();
 
   const sampleFlashcard = {
@@ -107,6 +109,49 @@ const DashboardPage = () => {
     }
   };
 
+  const handleDeckUpdate = async (deckData) => {
+    try {
+      const updatedDeck = await deckService.updateDeck(
+        editingDeck.id,
+        deckData
+      );
+      setDecks((prevDecks) =>
+        prevDecks.map((deck) =>
+          deck.id === updatedDeck.id ? updatedDeck : deck
+        )
+      );
+      if (selectedDeck?.id === updatedDeck.id) {
+        setSelectedDeck(updatedDeck);
+      }
+      setEditingDeck(null);
+    } catch (error) {
+      console.error("Error updating deck:", error);
+      throw new Error(error.response?.data?.message || "Failed to update deck");
+    }
+  };
+
+  const handleDeckDelete = async (deckId) => {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this deck? This action cannot be undone."
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await deckService.deleteDeck(deckId);
+      setDecks((prevDecks) => prevDecks.filter((deck) => deck.id !== deckId));
+      if (selectedDeck?.id === deckId) {
+        setSelectedDeck(null);
+        setFlashcards([]);
+      }
+    } catch (error) {
+      console.error("Error deleting deck:", error);
+      throw new Error(error.response?.data?.message || "Failed to delete deck");
+    }
+  };
+
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -144,15 +189,40 @@ const DashboardPage = () => {
           ) : (
             <div className="decks-list">
               {decks.map((deck) => (
-                <button
-                  key={deck.id}
-                  className={`deck-button ${
-                    selectedDeck?.id === deck.id ? "selected" : ""
-                  }`}
-                  onClick={() => handleDeckSelect(deck)}
-                >
-                  {deck.title}
-                </button>
+                <div key={deck.id} className="deck-item">
+                  {editingDeck?.id === deck.id ? (
+                    <CreateDeckForm
+                      initialData={{ title: deck.title }}
+                      onSubmit={handleDeckUpdate}
+                      onCancel={() => setEditingDeck(null)}
+                    />
+                  ) : (
+                    <>
+                      <button
+                        className={`deck-button ${
+                          selectedDeck?.id === deck.id ? "selected" : ""
+                        }`}
+                        onClick={() => handleDeckSelect(deck)}
+                      >
+                        {deck.title}
+                      </button>
+                      <div className="deck-actions">
+                        <button
+                          className="edit-deck-button"
+                          onClick={() => setEditingDeck(deck)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="delete-deck-button"
+                          onClick={() => handleDeckDelete(deck.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               ))}
             </div>
           )}

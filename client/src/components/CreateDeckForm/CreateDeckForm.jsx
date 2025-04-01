@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const CreateDeckForm = ({ onSubmit, onCancel }) => {
+const CreateDeckForm = ({ onSubmit, onCancel, initialData }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        title: initialData.title || "",
+        description: initialData.description || "",
+      });
+    }
+  }, [initialData]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -47,7 +56,9 @@ const CreateDeckForm = ({ onSubmit, onCancel }) => {
     setIsLoading(true);
     try {
       await onSubmit(formData);
-      setFormData({ title: "", description: "" });
+      if (!initialData) {
+        setFormData({ title: "", description: "" });
+      }
     } catch (error) {
       setErrors({
         submit: error.message || "An error occurred while creating the deck",
@@ -59,7 +70,7 @@ const CreateDeckForm = ({ onSubmit, onCancel }) => {
 
   return (
     <div className="create-deck-form">
-      <h3>Create New Deck</h3>
+      <h3>{initialData ? "Edit Deck" : "Create New Deck"}</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title</label>
@@ -92,7 +103,11 @@ const CreateDeckForm = ({ onSubmit, onCancel }) => {
 
         <div className="button-group">
           <button type="submit" className="submit-button" disabled={isLoading}>
-            {isLoading ? "Creating..." : "Create Deck"}
+            {isLoading
+              ? "Saving..."
+              : initialData
+              ? "Save Changes"
+              : "Create Deck"}
           </button>
           <button type="button" className="cancel-button" onClick={onCancel}>
             Cancel
@@ -106,6 +121,10 @@ const CreateDeckForm = ({ onSubmit, onCancel }) => {
 CreateDeckForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  initialData: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default CreateDeckForm;
