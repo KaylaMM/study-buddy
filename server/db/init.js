@@ -10,12 +10,14 @@ const __dirname = path.dirname(__filename);
 
 async function initializeDatabase() {
   try {
+    // Create connection without database selected
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST || "localhost",
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD,
     });
 
+    // Read and execute schema.sql
     const schema = fs.readFileSync(path.join(__dirname, "schema.sql"), "utf8");
     const statements = schema
       .split(";")
