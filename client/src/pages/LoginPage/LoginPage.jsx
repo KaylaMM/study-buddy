@@ -1,26 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import RegisterForm from "../components/RegisterForm/RegisterForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
 import axios from "axios";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const serverURL = import.meta.env.VITE_API_URL;
 
-  const handleRegister = async (formData) => {
+  const handleLogin = async (formData) => {
     try {
-      const { ...registrationData } = formData;
-
       const response = await axios.post(
-        `${serverURL}/api/auth/register`,
-        registrationData
+        `${serverURL}/api/auth/login`,
+        formData
       );
 
       const { data } = response;
       localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch (error) {
       throw new Error(
-        error.response?.data?.message || "Failed to register. Please try again."
+        error.response?.data?.message || "Failed to login. Please try again."
       );
     }
   };
@@ -28,12 +27,12 @@ const RegisterPage = () => {
   return (
     <div className="auth-page">
       <div className="auth-content">
-        <RegisterForm onSubmit={handleRegister} />
+        <LoginForm onSubmit={handleLogin} />
         <div className="auth-links">
           <p>
-            Already have an account?{" "}
-            <a href="/login" className="auth-link">
-              Login here
+            Don't have an account?{" "}
+            <a href="/register" className="auth-link">
+              Register here
             </a>
           </p>
         </div>
@@ -42,4 +41,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

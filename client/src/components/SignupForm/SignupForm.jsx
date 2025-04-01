@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const RegisterForm = ({ onSubmit }) => {
+const SignupForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -154,8 +154,8 @@ const RegisterForm = ({ onSubmit }) => {
   );
 };
 
-RegisterForm.propTypes = {
+SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default RegisterForm;
+export default SignupForm;

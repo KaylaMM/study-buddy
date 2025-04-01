@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
+    console.log(req.body);
     const [existingUsers] = await pool.query(
       "SELECT * FROM users WHERE email = ?",
       [email]
@@ -24,6 +24,20 @@ router.post("/signup", async (req, res) => {
     const [result] = await pool.query(
       "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
       [username, email, hashedPassword]
+    );
+
+    const [deckResult] = await pool.query(
+      "INSERT INTO decks (user_id, title, description) VALUES (?, ?, ?)",
+      [
+        result.insertId,
+        "Example Deck",
+        "A sample deck to help you get started!",
+      ]
+    );
+
+    await pool.query(
+      "INSERT INTO flashcards (deck_id, front_content, back_content) VALUES (?, ?, ?)",
+      [deckResult.insertId, "What is the capital of France?", "Paris"]
     );
 
     const token = jwt.sign(

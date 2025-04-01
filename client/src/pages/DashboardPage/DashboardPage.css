@@ -1,0 +1,60 @@
+.deck-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.deck-button {
+  flex: 1;
+  text-align: left;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deck-button:hover {
+  background: #f5f5f5;
+}
+
+.deck-button.selected {
+  background: #e3f2fd;
+  border-color: #2196f3;
+  color: #1976d2;
+}
+
+.deck-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.edit-deck-button,
+.delete-deck-button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+}
+
+.edit-deck-button {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.edit-deck-button:hover {
+  background: #bbdefb;
+}
+
+.delete-deck-button {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.delete-deck-button:hover {
+  background: #ffcdd2;
+}

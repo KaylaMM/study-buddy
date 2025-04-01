@@ -4,6 +4,7 @@ import jwtAuth from "../middleware/jwtAuth.js";
 
 const router = express.Router();
 
+// Get all flashcards for a deck
 router.get("/decks/:deckId/flashcards", jwtAuth, async (req, res) => {
   try {
     const { deckId } = req.params;
@@ -18,7 +19,8 @@ router.get("/decks/:deckId/flashcards", jwtAuth, async (req, res) => {
   }
 });
 
-router.get("/flashcards/:id", jwtAuth, async (req, res) => {
+// Get a specific flashcard
+router.get("/:id", jwtAuth, async (req, res) => {
   try {
     const { id } = req.params;
     const [flashcards] = await pool.query(
@@ -37,6 +39,7 @@ router.get("/flashcards/:id", jwtAuth, async (req, res) => {
   }
 });
 
+// Create a new flashcard in a deck
 router.post("/decks/:deckId/flashcards", jwtAuth, async (req, res) => {
   try {
     const { deckId } = req.params;
@@ -59,7 +62,8 @@ router.post("/decks/:deckId/flashcards", jwtAuth, async (req, res) => {
   }
 });
 
-router.put("/flashcards/:id", jwtAuth, async (req, res) => {
+// Update a flashcard
+router.put("/:id", jwtAuth, async (req, res) => {
   try {
     const { id } = req.params;
     const { front_content, back_content } = req.body;
@@ -85,7 +89,8 @@ router.put("/flashcards/:id", jwtAuth, async (req, res) => {
   }
 });
 
-router.delete("/flashcards/:id", jwtAuth, async (req, res) => {
+// Delete a flashcard
+router.delete("/:id", jwtAuth, async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query("DELETE FROM flashcards WHERE id = ?", [
