@@ -1,51 +1,46 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api`;
-console.log("API URL:", API_URL);
+const API_URL = "http://localhost:8080/api";
 
-const axiosInstance = axios.create({
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  console.log("Token:", token);
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-export const deckService = {
+const deckService = {
   getDecks: async () => {
-    console.log("Fetching decks...");
-    const response = await axiosInstance.get(`${API_URL}/decks`);
+    const token = localStorage.getItem("token");
+    const response = await axios.get(`${API_URL}/decks`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   },
 
-  getDeckById: async (id) => {
-    const response = await axiosInstance.get(`${API_URL}/decks/${id}`);
+  getDeck: async (deckId) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(`${API_URL}/decks/${deckId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   },
 
   createDeck: async (deckData) => {
-    console.log("Creating deck with data:", deckData);
-    const response = await axiosInstance.post(`${API_URL}/decks`, deckData);
+    const token = localStorage.getItem("token");
+    const response = await axios.post(`${API_URL}/decks`, deckData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   },
 
-  updateDeck: async (id, deckData) => {
-    const response = await axiosInstance.put(
-      `${API_URL}/decks/${id}`,
-      deckData
-    );
+  updateDeck: async (deckId, deckData) => {
+    const token = localStorage.getItem("token");
+    const response = await axios.put(`${API_URL}/decks/${deckId}`, deckData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   },
 
-  deleteDeck: async (id) => {
-    const response = await axiosInstance.delete(`${API_URL}/decks/${id}`);
-    return response.data;
+  deleteDeck: async (deckId) => {
+    const token = localStorage.getItem("token");
+    await axios.delete(`${API_URL}/decks/${deckId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   },
 };
+
+export { deckService };

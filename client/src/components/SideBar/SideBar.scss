@@ -1,0 +1,87 @@
+@import "../../styles/partials/mixins";
+@import "../../styles/partials/variables";
+.sidebar {
+  position: fixed;
+  left: -250px;
+  top: 5.5rem;
+  height: calc(100vh - 5.5rem);
+  width: 250px;
+  background-color: $white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+
+  @include tablet {
+    width: 280px;
+    left: -280px;
+  }
+
+  @include desktop {
+    width: 300px;
+    left: -300px;
+  }
+
+  &--open {
+    left: 0;
+  }
+
+  &__content {
+    padding: 1rem 0;
+
+    @include tablet {
+      padding: 1.25rem 0;
+    }
+
+    @include desktop {
+      padding: 1.5rem 0;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    color: $gray-700;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+
+    @include tablet {
+      padding: 0.875rem 1.5rem;
+    }
+
+    @include desktop {
+      padding: 1rem 1.75rem;
+    }
+
+    &:hover {
+      background-color: $gray-100;
+    }
+  }
+
+  &__icon {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+
+    @include tablet {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+    }
+
+    @include desktop {
+      margin-right: 1.25rem;
+      font-size: 1.3rem;
+    }
+  }
+
+  &__label {
+    font-size: 0.95rem;
+
+    @include tablet {
+      font-size: 1rem;
+    }
+
+    @include desktop {
+      font-size: 1.1rem;
+    }
+  }
+}

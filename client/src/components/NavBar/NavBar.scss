@@ -1,0 +1,143 @@
+@import "../../styles/partials/mixins";
+@import "../../styles/partials/variables";
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: $white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  @include tablet {
+    padding: 1rem 2rem;
+  }
+
+  @include desktop {
+    padding: 1rem 3rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @include tablet {
+      gap: 1rem;
+    }
+
+    @include desktop {
+      gap: 1.5rem;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @include tablet {
+      gap: 1rem;
+    }
+
+    @include desktop {
+      gap: 1.5rem;
+    }
+  }
+
+  &__menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    color: $gray-700;
+
+    @include tablet {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      color: $gray-500;
+    }
+  }
+
+  &__logo {
+    text-decoration: none;
+    color: $gray-700;
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @include tablet {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      color: $gray-500;
+    }
+  }
+
+  &__logo-icon {
+    height: 2.5rem;
+    width: auto;
+
+    @include tablet {
+      height: 3rem;
+    }
+
+    @include desktop {
+      height: 4rem;
+    }
+  }
+
+  &__avatar {
+    font-size: 1.5rem;
+    color: $gray-500;
+    cursor: pointer;
+
+    @include tablet {
+      font-size: 1.75rem;
+    }
+
+    @include desktop {
+      font-size: 2rem;
+    }
+
+    &:hover {
+      color: $gray-700;
+    }
+  }
+
+  &__logout-btn {
+    background-color: $error-red;
+    color: $white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.2s ease;
+
+    @include tablet {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    &:hover {
+      background-color: $error-red-dark;
+    }
+  }
+}
