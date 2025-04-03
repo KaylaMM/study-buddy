@@ -16,18 +16,24 @@ const Flashcard = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this flashcard?")) {
       setIsLoading(true);
       try {
         await flashcardService.deleteFlashcard(id);
-        onDelete();
+        onDelete(id);
       } catch (error) {
         console.error("Error deleting flashcard:", error);
       } finally {
         setIsLoading(false);
       }
     }
+  };
+
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    setIsEditing(true);
   };
 
   if (isEditing) {
@@ -59,20 +65,18 @@ const Flashcard = ({
         <div className="flashcard__back">
           <p>{backContent}</p>
         </div>
-      </div>
-      <div className="flashcard__actions">
-        <i
-          className="fas fa-pencil-alt flashcard__icon flashcard__icon--edit"
-          onClick={() => setIsEditing(true)}
-        />
-        <i
-          className="fas fa-trash-alt flashcard__icon flashcard__icon--delete"
-          onClick={handleDelete}
-          style={{
-            opacity: isLoading ? 0.6 : 1,
-            cursor: isLoading ? "not-allowed" : "pointer",
-          }}
-        />
+        <div className="flashcard__actions">
+          <i
+            className="fas fa-pencil-alt flashcard__icon flashcard__icon--edit"
+            onClick={handleEdit}
+          />
+          <i
+            className={`fas fa-trash-alt flashcard__icon flashcard__icon--delete ${
+              isLoading ? "flashcard__icon--disabled" : ""
+            }`}
+            onClick={handleDelete}
+          />
+        </div>
       </div>
     </div>
   );

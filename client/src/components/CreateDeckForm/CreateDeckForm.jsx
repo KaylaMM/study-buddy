@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./CreateDeckForm.scss";
+
 const CreateDeckForm = ({ onSubmit, onCancel, initialData }) => {
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +57,7 @@ const CreateDeckForm = ({ onSubmit, onCancel, initialData }) => {
     try {
       await onSubmit(formData);
       if (!initialData) {
-        setFormData({ title: "", description: "" });
+        setFormData({ title: " " });
       }
     } catch (error) {
       setErrors({
@@ -95,20 +95,6 @@ const CreateDeckForm = ({ onSubmit, onCancel, initialData }) => {
               {errors.title && (
                 <span className="deck-form__error">{errors.title}</span>
               )}
-            </div>
-
-            <div className="deck-form__group">
-              <label htmlFor="description" className="deck-form__label">
-                Description (Optional)
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="deck-form__textarea"
-                placeholder="Enter deck description"
-              />
             </div>
 
             {errors.submit && (

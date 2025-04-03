@@ -1,6 +1,6 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { flashcardService } from "../../services/flashcardService";
+import PropTypes from "prop-types";
 import "./FlashcardForm.scss";
 
 const FlashcardForm = ({ deckId, onUpdate, onCancel, id, initialData }) => {
@@ -53,13 +53,18 @@ const FlashcardForm = ({ deckId, onUpdate, onCancel, id, initialData }) => {
     setIsLoading(true);
     try {
       if (id) {
-        // Update existing flashcard
-        await flashcardService.updateFlashcard(id, formData);
+        const updatedFlashcard = await flashcardService.updateFlashcard(
+          id,
+          formData
+        );
+        onUpdate(updatedFlashcard);
       } else {
-        // Create new flashcard
-        await flashcardService.createFlashcard(deckId, formData);
+        const newFlashcard = await flashcardService.createFlashcard(
+          deckId,
+          formData
+        );
+        onUpdate(newFlashcard);
       }
-      onUpdate();
     } catch (error) {
       setErrors({
         submit: error.message || "An error occurred while saving the flashcard",
