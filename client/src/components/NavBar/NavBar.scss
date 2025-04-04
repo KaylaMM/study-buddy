@@ -1,5 +1,6 @@
-@import "../../styles/partials/mixins";
-@import "../../styles/partials/variables";
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
 .nav {
   display: flex;
   justify-content: space-between;
