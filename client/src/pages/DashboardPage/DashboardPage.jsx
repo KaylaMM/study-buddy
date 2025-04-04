@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import NavBar from "../../components/NavBar/Navbar";
-import Decks from "../../components/Decks/Decks";
+import Deck from "../../components/Deck/Deck";
 import { deckService } from "../../services/deckService";
 import "./DashboardPage.scss";
 
@@ -49,12 +49,22 @@ const DashboardPage = () => {
       <main className="dashboard__content">
         {isHomeRoute ? (
           <div className="dashboard__welcome">
-            <h1 className="dashboard__welcome-title">Welcome back!</h1>
-            <p className="dashboard__welcome-email">Your email: {user.email}</p>
+            <h1 className="dashboard__welcome-title">
+              Welcome back, {user.username}!
+            </h1>
 
             <section className="dashboard__latest-decks">
               <h2 className="dashboard__section-title">Latest Decks</h2>
-              <Decks decks={latestDecks} layout="scroll" showActions={false} />
+              <div className="dashboard__decks-grid">
+                {latestDecks.map((deck) => (
+                  <Deck
+                    key={deck.id}
+                    deck={deck}
+                    layout="grid"
+                    showActions={false}
+                  />
+                ))}
+              </div>
             </section>
 
             <div className="dashboard__actions">

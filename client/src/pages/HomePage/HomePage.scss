@@ -34,6 +34,7 @@
 
     @include desktop {
       padding: 3rem;
+      width: 40%;
     }
   }
 
@@ -100,8 +101,8 @@
   }
 
   &__button {
-    padding: 0.6rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     border-radius: 8px;
     cursor: pointer;
@@ -110,8 +111,6 @@
     width: 100%;
 
     @include tablet {
-      padding: 0.75rem 2rem;
-      font-size: 1.1rem;
       width: auto;
     }
 
@@ -142,21 +141,14 @@
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 0;
+  display: grid;
+  place-items: center;
   z-index: 1000;
 
   &__overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-color: $overlay-black;
     backdrop-filter: blur(4px);
     z-index: -1;
@@ -164,10 +156,12 @@
 
   &__content {
     position: relative;
+    display: grid;
     width: 100%;
     max-width: 90%;
     margin: 1rem;
     animation: modalFadeIn 0.3s ease-out;
+    place-items: center;
 
     @include tablet {
       max-width: 500px;

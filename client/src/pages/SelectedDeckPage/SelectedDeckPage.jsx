@@ -77,13 +77,6 @@ const SelectedDeckPage = () => {
         </div>
         <div className="selected-deck-page__title-section">
           <h1 className="selected-deck-page__title">{deck.title}</h1>
-          <button
-            className="selected-deck-page__create-btn"
-            onClick={() => setIsCreating(true)}
-            disabled={isCreating}
-          >
-            {isCreating ? "Creating..." : "+ Create Flashcard"}
-          </button>
         </div>
       </div>
 
@@ -98,6 +91,11 @@ const SelectedDeckPage = () => {
           </div>
         )}
         <div className="selected-deck-page__flashcards">
+          <div
+            className="selected-deck-page__create-card"
+            onClick={() => setIsCreating(true)}
+            disabled={isCreating}
+          />
           {flashcards.length > 0 ? (
             flashcards.map((flashcard) => (
               <Flashcard

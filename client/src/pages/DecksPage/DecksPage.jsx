@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deckService } from "../../services/deckService";
 import CreateDeckForm from "../../components/CreateDeckForm/CreateDeckForm";
-import Decks from "../../components/Decks/Decks";
+import Deck from "../../components/Deck/Deck";
 import "./DecksPage.scss";
 
 const DecksPage = () => {
   const [decks, setDecks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isCreatingDeck, setIsCreatingDeck] = useState(false);
   const [editingDeck, setEditingDeck] = useState(null);
   const navigate = useNavigate();
@@ -14,10 +15,14 @@ const DecksPage = () => {
   useEffect(() => {
     const fetchDecks = async () => {
       try {
+        setIsLoading(true);
         const data = await deckService.getDecks();
-        setDecks(data);
+        setDecks(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching decks:", error);
+        setDecks([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -27,9 +32,11 @@ const DecksPage = () => {
   const handleCreateDeck = async (deckData) => {
     try {
       const newDeck = await deckService.createDeck(deckData);
-      setDecks((prevDecks) => [...prevDecks, newDeck]);
-      setIsCreatingDeck(false);
-      navigate(`/dashboard/decks/${newDeck.id}`);
+      if (newDeck && newDeck.id) {
+        setDecks((prevDecks) => [...prevDecks, newDeck]);
+        setIsCreatingDeck(false);
+        navigate(`/dashboard/decks/${newDeck.id}`);
+      }
     } catch (error) {
       console.error("Error creating deck:", error);
       throw new Error(error.response?.data?.message || "Failed to create deck");
@@ -42,12 +49,14 @@ const DecksPage = () => {
         editingDeck.id,
         deckData
       );
-      setDecks((prevDecks) =>
-        prevDecks.map((deck) =>
-          deck.id === updatedDeck.id ? updatedDeck : deck
-        )
-      );
-      setEditingDeck(null);
+      if (updatedDeck && updatedDeck.id) {
+        setDecks((prevDecks) =>
+          prevDecks.map((deck) =>
+            deck.id === updatedDeck.id ? updatedDeck : deck
+          )
+        );
+        setEditingDeck(null);
+      }
     } catch (error) {
       console.error("Error updating deck:", error);
       throw new Error(error.response?.data?.message || "Failed to update deck");
@@ -56,6 +65,7 @@ const DecksPage = () => {
 
   const handleDeckDelete = async (deckId) => {
     if (
+      !deckId ||
       !window.confirm(
         "Are you sure you want to delete this deck? This action cannot be undone."
       )
@@ -72,25 +82,54 @@ const DecksPage = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="decks-page">
+        <div className="decks-page__loading">Loading decks...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="decks-page">
       <div className="decks-page__header">
-        <h2>Your Decks</h2>
-        <button
-          type="button"
-          className="decks-page__create-deck-btn"
-          onClick={() => setIsCreatingDeck(true)}
-        >
-          Create New Deck
-        </button>
+        <div className="decks-page__navigation">
+          <div className="decks-page__breadcrumbs">
+            <span onClick={() => navigate("/dashboard")}>Dashboard</span>
+            <span>/</span>
+            <span className="decks-page__current-page">Decks</span>
+          </div>
+        </div>
+        <div className="decks-page__title-section">
+          <h1 className="decks-page__title">Your Decks</h1>
+        </div>
       </div>
 
-      <Decks
-        decks={decks}
-        onEditDeck={setEditingDeck}
-        onDeleteDeck={handleDeckDelete}
-        layout="grid"
-      />
+      <div className="decks-page__decks-grid">
+        <div
+          className="decks-page__create-card"
+          onClick={() => setIsCreatingDeck(true)}
+        />
+        {decks.length > 0 ? (
+          decks.map(
+            (deck) =>
+              deck && (
+                <Deck
+                  key={deck.id}
+                  deck={deck}
+                  onEditDeck={setEditingDeck}
+                  onDeleteDeck={handleDeckDelete}
+                  layout="grid"
+                  showActions={true}
+                />
+              )
+          )
+        ) : (
+          <p className="decks-page__no-decks">
+            No decks yet. Create your first deck to get started!
+          </p>
+        )}
+      </div>
 
       {isCreatingDeck && (
         <CreateDeckForm

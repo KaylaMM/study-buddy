@@ -3,16 +3,13 @@
 
 .selected-deck-page {
   padding: 1rem;
-  padding-top: 5rem;
 
   @include tablet {
     padding: 2rem;
-    padding-top: 6rem;
   }
 
   @include desktop {
     padding: 3rem;
-    padding-top: 7rem;
   }
 
   &__header {
@@ -120,6 +117,52 @@
 
     @include desktop {
       font-size: 2.5rem;
+    }
+  }
+
+  &__create-card {
+    width: 100%;
+    max-width: 300px;
+    height: 180px;
+    margin: 0.5rem;
+    background-color: $white;
+    border: 1px solid $gray-300;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    @include tablet {
+      max-width: 350px;
+      height: 220px;
+      margin: 1rem;
+    }
+
+    @include desktop {
+      max-width: 400px;
+      height: 250px;
+      margin: 1.5rem;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      border-color: $success-green;
+    }
+
+    &::before {
+      content: "+";
+      font-size: 3rem;
+      color: $gray-400;
+      transition: color 0.3s ease;
+    }
+
+    &:hover::before {
+      color: $success-green;
     }
   }
 

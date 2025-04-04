@@ -59,14 +59,12 @@ router.post("/", jwtAuth, async (req, res) => {
   }
 });
 
-// Update a deck
 router.put("/:id", jwtAuth, async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description } = req.body;
     const userId = req.user.userId;
 
-    // First check if the deck exists and belongs to the user
     const [existingDeck] = await pool.query(
       "SELECT * FROM decks WHERE id = ? AND user_id = ?",
       [id, userId]
@@ -76,13 +74,11 @@ router.put("/:id", jwtAuth, async (req, res) => {
       return res.status(404).json({ message: "Deck not found" });
     }
 
-    // Update the deck
     await pool.query(
       "UPDATE decks SET title = ?, description = ? WHERE id = ? AND user_id = ?",
       [title, description, id, userId]
     );
 
-    // Get the updated deck
     const [updatedDeck] = await pool.query("SELECT * FROM decks WHERE id = ?", [
       id,
     ]);
@@ -94,13 +90,11 @@ router.put("/:id", jwtAuth, async (req, res) => {
   }
 });
 
-// Delete a deck
 router.delete("/:id", jwtAuth, async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
 
-    // First check if the deck exists and belongs to the user
     const [existingDeck] = await pool.query(
       "SELECT * FROM decks WHERE id = ? AND user_id = ?",
       [id, userId]
@@ -110,7 +104,6 @@ router.delete("/:id", jwtAuth, async (req, res) => {
       return res.status(404).json({ message: "Deck not found" });
     }
 
-    // Delete the deck
     await pool.query("DELETE FROM decks WHERE id = ? AND user_id = ?", [
       id,
       userId,

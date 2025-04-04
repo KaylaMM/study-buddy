@@ -1,0 +1,153 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.deck {
+  position: relative;
+  background-color: #fef1dc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #c6bdae;
+  cursor: pointer;
+  margin-bottom: 1rem;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-color: #fef1dc;
+    border-bottom: 1px solid #c6bdae;
+  }
+
+  &--grid {
+    width: 100%;
+    @include tablet {
+      height: 180px;
+    }
+    @include desktop {
+      height: 200px;
+    }
+  }
+
+  &--scroll {
+    flex: 0 0 280px;
+    @include tablet {
+      flex: 0 0 320px;
+      height: 180px;
+    }
+    @include desktop {
+      flex: 0 0 360px;
+      height: 200px;
+    }
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-family: "Courier New", monospace;
+    color: $gray-700;
+    background-color: $white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: rotate(-2deg);
+    position: relative;
+    transition: transform 0.2s ease;
+    max-width: 80%;
+    text-align: center;
+    border: 1px solid $primary-red-hover;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background-color: $primary-red-hover;
+      border-radius: 4px 4px 0 0;
+    }
+
+    &:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+
+    @include desktop {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+
+    @include tablet {
+      bottom: 12px;
+      right: 12px;
+      gap: 0.75rem;
+    }
+
+    @include desktop {
+      bottom: 15px;
+      right: 15px;
+      gap: 1rem;
+    }
+  }
+
+  &__icon {
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: $primary-peach;
+    opacity: 0.5;
+    padding: 4px;
+
+    @include tablet {
+      font-size: 1.25rem;
+      padding: 5px;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      color: $gray-700;
+      background-color: rgba(255, 255, 255, 0.9);
+      opacity: 1;
+    }
+
+    &--edit {
+      &:hover {
+        color: #4a90e2;
+      }
+    }
+
+    &--delete {
+      &:hover {
+        color: #dc3545;
+      }
+    }
+  }
+}

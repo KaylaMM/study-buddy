@@ -1,9 +1,10 @@
-@import "../../styles/partials/mixins";
-@import "../../styles/partials/variables";
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
 .sidebar {
   position: fixed;
   left: -250px;
-  top: 5.5rem;
+  top: 4rem;
   height: calc(100vh - 5.5rem);
   width: 250px;
   background-color: $white;
@@ -14,11 +15,13 @@
   @include tablet {
     width: 280px;
     left: -280px;
+    top: 5rem;
   }
 
   @include desktop {
     width: 300px;
     left: -300px;
+    top: 6rem;
   }
 
   &--open {

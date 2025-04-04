@@ -3,7 +3,7 @@
 @use "../../styles/partials/global" as *;
 
 .login-form {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
   padding: 1.5rem;
   background-color: $white;
@@ -14,12 +14,12 @@
 
   @include tablet {
     padding: 2rem;
-    max-width: 550px;
+    min-width: 100%;
   }
 
   @include desktop {
     padding: 2.5rem;
-    max-width: 600px;
+    min-width: 50%;
   }
 
   &__title {

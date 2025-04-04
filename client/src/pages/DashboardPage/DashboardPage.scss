@@ -4,9 +4,11 @@
 
 .dashboard {
   display: flex;
-  height: 100%;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: $white;
   padding-top: 4rem;
+  overflow: hidden;
 
   &__logout-btn {
     padding: 8px 16px;
@@ -24,13 +26,18 @@
 
   &__content {
     flex: 1;
-    padding: 2rem;
+    padding: 1rem;
+    margin-top: 4rem;
+    overflow-y: auto;
+
     @include tablet {
-      padding: 2.5rem;
+      padding: 2rem;
+      margin-top: 5rem;
     }
 
     @include desktop {
       padding: 3rem;
+      margin-top: 6rem;
     }
   }
 
@@ -91,6 +98,44 @@
 
   &__latest-decks {
     margin: 2rem 0;
+  }
+
+  &__decks-grid {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $gray-100;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $gray-300;
+      border-radius: 3px;
+    }
+
+    > * {
+      flex: 0 0 300px;
+      max-width: 300px;
+    }
+
+    @include tablet {
+      gap: 1.5rem;
+    }
+
+    @include desktop {
+      gap: 2rem;
+    }
   }
 
   &__section-title {
