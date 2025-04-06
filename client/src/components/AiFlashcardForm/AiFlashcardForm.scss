@@ -1,0 +1,178 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/global" as *;
+
+.ai-flashcard-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $overlay-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &__content {
+    background-color: $white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 6px $shadow-black, 0 1px 3px $shadow-black-light;
+    animation: modalFadeIn 0.3s ease-out;
+
+    @include tablet {
+      padding: 2rem;
+    }
+
+    @include desktop {
+      padding: 2.5rem;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: $gray-600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+
+    @include tablet {
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      color: $primary-red;
+      transform: scale(1.1);
+    }
+  }
+
+  &__title {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: $primary-red;
+    text-align: center;
+    font-weight: 600;
+
+    @include tablet {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    @include desktop {
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  &__field {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: $gray-700;
+      font-weight: 500;
+      font-size: 0.95rem;
+
+      @include tablet {
+        font-size: 1rem;
+      }
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid $shadow-black;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+
+      @include tablet {
+        padding: 0.875rem;
+        font-size: 1rem;
+      }
+
+      @include desktop {
+        padding: 1rem;
+        font-size: 1.05rem;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-red;
+        transform: translateY(-1px);
+        box-shadow: 0 0 0 3px $shadow-red;
+      }
+
+      &::placeholder {
+        color: $secondary-gray-muted;
+      }
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $primary-red;
+    color: $white;
+    border: 2px solid $primary-red-hover;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+
+    @include tablet {
+      padding: 0.875rem;
+      font-size: 1.1rem;
+    }
+
+    @include desktop {
+      padding: 1rem;
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      background-color: $primary-peach;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      background-color: $gray-400;
+      border-color: $gray-600;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

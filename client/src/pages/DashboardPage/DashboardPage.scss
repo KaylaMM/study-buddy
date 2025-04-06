@@ -80,6 +80,9 @@
     font-size: 2rem;
     color: $gray-700;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     @include tablet {
       font-size: 2.5rem;
@@ -98,6 +101,11 @@
 
   &__latest-decks {
     margin: 2rem 0;
+    padding: 2rem;
+    border: 1px solid rgba($gray-300, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba($gray-400, 0.1);
+    background-color: rgba($white, 0.8);
   }
 
   &__decks-grid {
@@ -147,38 +155,122 @@
   &__actions {
     display: flex;
     gap: 1rem;
+    justify-content: center;
+    align-items: center;
     margin-top: 2rem;
-
-    @include tablet {
-      gap: 1.5rem;
-    }
   }
 
   &__action-btn {
     padding: 0.75rem 1.5rem;
+    background-color: $primary-peach;
+    color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-size: 1rem;
+    transition: background-color 0.2s;
 
-    &:first-child {
-      background-color: #e3f2fd;
-      color: #1976d2;
+    &:hover {
+      background-color: darken($primary-peach, 10%);
+    }
+  }
 
-      &:hover {
-        background-color: #bbdefb;
+  &__ai-buddy {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    transition: transform 0.2s;
+    margin-right: 1rem;
+
+    @include tablet {
+      margin-right: 1.5rem;
+    }
+
+    @include desktop {
+      margin-right: 2rem;
+    }
+
+    img {
+      width: 8rem;
+      height: 8rem;
+      object-fit: contain;
+      animation: wave 2s infinite;
+
+      @include tablet {
+        width: 10rem;
+        height: 10rem;
+      }
+
+      @include desktop {
+        width: 12rem;
+        height: 12rem;
       }
     }
 
-    &:last-child {
-      background-color: $success-green;
-      color: $white;
+    &::after {
+      content: "Click me to create an AI generated deck of flashcards!";
+      position: absolute;
+      background: $white;
+      border: 1px solid $gray-300;
+      border-radius: 12px;
+      padding: 0.75rem;
+      width: max-content;
+      max-width: 200px;
+      right: 90%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: $gray-700;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba($gray-400, 0.2);
+      z-index: 1;
 
-      &:hover {
-        background-color: $success-green-dark;
+      @include tablet {
+        padding: 1rem;
+        max-width: 250px;
+        right: 95%;
+        font-size: 1rem;
       }
+
+      @include desktop {
+        padding: 1.25rem;
+        max-width: 300px;
+        right: calc(100% + 2rem);
+        font-size: 1.1rem;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid $white;
+      }
+    }
+
+    &:not(:active):hover {
+      &::after {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
     }
   }
 
