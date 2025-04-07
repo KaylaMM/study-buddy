@@ -1,9 +1,9 @@
 import express from "express";
-import "dotenv/config";
 import authRoutes from "./routes/authRoutes.js";
 import deckRoutes from "./routes/deckRoutes.js";
 import flashcardRoutes from "./routes/flashcardRoutes.js";
 import cors from "cors";
+import "dotenv/config";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -23,10 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/decks", deckRoutes);
 app.use("/api/flashcards", flashcardRoutes);
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

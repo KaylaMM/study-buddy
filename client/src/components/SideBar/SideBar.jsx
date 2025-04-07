@@ -1,17 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaBook, FaQuestionCircle, FaChartLine } from "react-icons/fa";
+import { FaHome, FaBook, FaChartLine } from "react-icons/fa";
 import "./Sidebar.scss";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const menuItems = [
     { path: "/dashboard", icon: <FaHome />, label: "Home" },
     { path: "/dashboard/decks", icon: <FaBook />, label: "Decks" },
-    {
-      path: "/dashboard/quiz",
-      icon: <FaQuestionCircle />,
-      label: "Quiz Generator",
-    },
+
     {
       path: "/dashboard/progress",
       icon: <FaChartLine />,

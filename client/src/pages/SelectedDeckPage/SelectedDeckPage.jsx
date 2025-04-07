@@ -77,6 +77,13 @@ const SelectedDeckPage = () => {
         </div>
         <div className="selected-deck-page__title-section">
           <h1 className="selected-deck-page__title">{deck.title}</h1>
+          <button
+            className="selected-deck-page__quiz-btn"
+            onClick={() => navigate(`/dashboard/quiz/${deckId}`)}
+            disabled={flashcards.length === 0}
+          >
+            Quiz Mode
+          </button>
         </div>
       </div>
 
