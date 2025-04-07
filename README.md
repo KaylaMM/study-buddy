@@ -1,123 +1,39 @@
-# StudyBuddy: AI-Powered Flashcards and Study Helper
+## StudyBuddy: AI-Powered Flashcards and Study Helper
 
-**An application that helps users generate, organize, and review flashcards for studying.**
+#### An application that helps users generate, organize, and review flashcards for studying.\*\*
 
-StudyBuddy leverages ChatGPT’s API to generate flashcard content, provide explanations, and simulate study sessions with interactive quizzes.
+StudyBuddy allows you to create flashcards yourself or by leveraging OpenAI’s API to generate flashcards on the topic of your choice and simulate study sessions with an interactive quiz mode.
 
-## Features
+## Project Screen Shot(s)
 
-### MVP Features
+## Installation and Setup Instructions
 
-✅ **User Authentication**
+#### Example:
 
-- Sign up and log in for a personalized experience.
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.
 
-✅ **Flashcard Creation**
+Installation:
 
-- Create flashcards manually or generate them automatically using ChatGPT.
-- Input a topic or text, and the app generates Q&A flashcards.
+`npm install`
 
-✅ **Flashcard Organization**
+To Start Server:
 
-- Organize flashcards into subject-based decks.
+`npm start`
 
-✅ **Study Mode**
+To Start Client:
 
-- Review flashcards in Q&A format.
-- Quiz mode where ChatGPT generates and asks questions interactively.
+`npm run dev`
 
-### Stretch Goals (Optional)
+To Visit App:
 
-🔹 **AI Quiz Generation** – Generate custom multiple-choice quizzes.  
-🔹 **Progress Tracking** – Track correct/incorrect answers per deck.  
-🔹 **Collaboration** – Share decks with other users.
+`localhost:5173/`
 
-## Tech Stack
+## Reflection
 
-- **Frontend**: React
-- **Backend**: Node.js with Express
-- **Database**: MySQL (stores users, flashcards, and decks)
-- **API**: OpenAI’s ChatGPT API (for flashcard & quiz generation)
+I built this app to help my students bridge the gap between their understanding and the technical language often expected in interviews. Watching them struggle to articulate their thought process—despite grasping the concepts—inspired me to create a simple, practical tool. It’s not just about memorizing jargon; it’s about building confidence by making those terms feel familiar and accessible. Hopefully, it’ll empower them to communicate their skills as clearly as they understand them.
 
-## Development Plan
+My goal something that was pretty simple, that gave users the option of creating their own flashcards and using tools like ChatGPT to help generate a deck directly in the app so they can focus on studying.
 
-### 1: Setup & Authentication
+I chose React and Vite for their speed and to keep things lightweight, and in hopes that it'd feel snappy for users. Express and Node handled the backend, and MySQL to manage the database. For styling, Sass streamlined my workflow with reusable components, and a few strategic npm packages to keep things polished.
 
-- Set up project structure (frontend + backend).
-- Configure MySQL database + Express connection.
-- Implement user authentication (JWT).
-
-### 2: Flashcard Management
-
-- Create MySQL tables for flashcards & decks.
-- Build backend CRUD routes for flashcards.
-- Develop React components for flashcard management.
-
-### 3: Study Mode & ChatGPT Integration
-
-- Integrate ChatGPT API for flashcard generation.
-- Implement study mode (Q&A and quiz simulation).
-
-### 4: Polishing & Deployment
-
-- Finalize styling.
-- Test and debug API integration.
-- Deploy the app.
-
-## Feature Tickets (Epics & Tasks)
-
-### **Epic 1: Authentication System**
-
-- [ ] 1.1: Set up MySQL `users` table.
-- [ ] 1.2: Build backend routes (signup/login/logout).
-- [ ] 1.3: Implement JWT authentication.
-- [ ] 1.4: Design frontend auth forms.
-
-### **Epic 2: Flashcard Management**
-
-- [ ] 2.1: Create MySQL tables for flashcards & decks.
-- [ ] 2.2: Build CRUD routes for flashcards.
-- [ ] 2.3: Develop React components for flashcard UI.
-- [ ] 2.4: Incorporate styling.
-- [ ] 2.5: Create NavBar & SideBar with styling.
-- [ ] 2.6: Create DeckPage & FlashcardPages with styling.
-
-### **Epic 3: ChatGPT Integration**
-
-- [ ] 3.1: Connect to OpenAI’s API.
-- [ ] 3.2: Build backend endpoint for API calls.
-- [ ] 3.3: Add AI flashcard generation in frontend.
-- [ ] 3.4: Implement AI-powered quiz mode.
-
-### **Epic 4: Study Mode & Deployment**
-
-- [ ] 4.1: Create study mode interface.
-- [ ] 4.2: Finalize app styling.
-- [ ] 4.3: Test, debug, and deploy.
-
-## OpenAI API Use Case
-
-**Example: Generate Flashcards**  
-**Endpoint**: `https://api.openai.com/v1/chat/completions`  
-**Prompt**:
-
-```json
-"Generate flashcards for the topic 'Photosynthesis'"
-```
-
-**Response**:
-
-```json
-{
-  "flashcards": [
-    {
-      "question": "What is photosynthesis?",
-      "answer": "The process by which plants convert light energy into chemical energy."
-    },
-    {
-      "question": "What are the main inputs of photosynthesis?",
-      "answer": "Carbon dioxide, water, and sunlight."
-    }
-  ]
-}
-```
+There are features I'd like to incorporate in future iterations, such as a progress tracker, and a better user interface for mobile use specifically so students can use this tool on the go.
