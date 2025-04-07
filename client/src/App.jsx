@@ -14,7 +14,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />}>
           <Route path="decks" element={<DecksPage />} />
           <Route path="decks/:deckId" element={<SelectedDeckPage />} />
-          <Route path="quiz" element={<QuizPage />} />
+          <Route path="quiz/:deckId" element={<QuizPage />} />
           <Route path="progress" element={<ProgressPage />} />
         </Route>
       </Routes>
