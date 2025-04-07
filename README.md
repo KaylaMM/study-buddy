@@ -4,11 +4,9 @@
 
 StudyBuddy allows you to create flashcards yourself or by leveraging OpenAI’s API to generate flashcards on the topic of your choice and simulate study sessions with an interactive quiz mode.
 
-## Project Screen Shot(s)
+## Project Screen Shots
 
 ## Installation and Setup Instructions
-
-#### Example:
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.
 
