@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import NavBar from "../../components/NavBar/Navbar";
+import NavBar from "../../components/NavBar/NavBar";
 import Deck from "../../components/Deck/Deck";
 import AiFlashcardForm from "../../components/AiFlashcardForm/AiFlashcardForm";
 import { deckService } from "../../services/deckService";
