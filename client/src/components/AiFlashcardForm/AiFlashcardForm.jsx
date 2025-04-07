@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AIFlashcardForm.scss";
+import "./AiFlashcardForm.scss";
 
 const AIFlashcardForm = ({ onSubmit, onClose }) => {
   const [subject, setSubject] = useState("");
