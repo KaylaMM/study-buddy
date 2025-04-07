@@ -30,8 +30,8 @@ To Visit App:
 
 I built this app to help my students bridge the gap between their understanding and the technical language often expected in interviews. Watching them struggle to articulate their thought process—despite grasping the concepts—inspired me to create a simple, practical tool. It’s not just about memorizing jargon; it’s about building confidence by making those terms feel familiar and accessible. Hopefully, it’ll empower them to communicate their skills as clearly as they understand them.
 
-My goal something that was pretty simple, that gave users the option of creating their own flashcards and using tools like ChatGPT to help generate a deck directly in the app so they can focus on studying.
+My goal was to build something that was pretty simple, that gave users the option of creating their own flashcards and using tools like ChatGPT to help generate a deck directly in the app so they can focus on studying.
 
 I chose React and Vite for their speed and to keep things lightweight, and in hopes that it'd feel snappy for users. Express and Node handled the backend, and MySQL to manage the database. For styling, Sass streamlined my workflow with reusable components, and a few strategic npm packages to keep things polished.
 
-There are features I'd like to incorporate in future iterations, such as a progress tracker, and a better user interface for mobile use specifically so students can use this tool on the go.
+There are features I'd like to incorporate in future iterations, such as a progress tracker, and a better user interface for mobile devices so students can use this tool on the go.
