@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaUserCircle } from "react-icons/fa";
-import Sidebar from "../SideBar/SideBar";
+import SideBar from "../SideBar/SideBar";
 import logo from "../../assets/images/study-buddy-cropped-transparent.png";
 import "./NavBar.scss";
 
@@ -35,7 +35,7 @@ const NavBar = () => {
           Logout
         </button>
       </div>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <SideBar isOpen={isSidebarOpen} onClose={toggleSidebar} />
     </nav>
   );
 };

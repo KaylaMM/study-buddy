@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaHome, FaBook, FaChartLine } from "react-icons/fa";
-import "./Sidebar.scss";
+import "./SideBar.scss";
 
-const Sidebar = ({ isOpen, onClose }) => {
+const SideBar = ({ isOpen, onClose }) => {
   const menuItems = [
     { path: "/dashboard", icon: <FaHome />, label: "Home" },
     { path: "/dashboard/decks", icon: <FaBook />, label: "Decks" },
@@ -34,4 +34,4 @@ const Sidebar = ({ isOpen, onClose }) => {
   );
 };
 
-export default Sidebar;
+export default SideBar;
