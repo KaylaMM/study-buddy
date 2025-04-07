@@ -6,9 +6,20 @@ StudyBuddy allows you to create flashcards yourself or by leveraging OpenAI’s 
 
 ## Project Screen Shots
 
+## Tech Stack
+
+React
+JavaScript
+Sass
+Express
+Node
+MySQL
+
 ## Installation and Setup Instructions
 
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.
+- Clone down this repository. You will need `node` and `npm` installed globally on your machine.
+
+- Create environment variables and use your credentials for database configuration.
 
 Installation:
 
