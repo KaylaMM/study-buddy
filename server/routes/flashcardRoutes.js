@@ -215,4 +215,48 @@ router.post("/generate", jwtAuth, async (req, res) => {
   }
 });
 
+router.post("/generate-distractors", jwtAuth, async (req, res) => {
+  try {
+    const { correctAnswer, context } = req.body;
+
+    if (!correctAnswer || !context) {
+      return res.status(400).json({ message: "Missing required parameters" });
+    }
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a helpful assistant that generates plausible but incorrect answer options for multiple choice questions. Generate 2 distractors that are related to the topic but incorrect. Return them as a JSON array of strings.",
+        },
+        {
+          role: "user",
+          content: `Given the correct answer "${correctAnswer}" and context "${context}", generate 2 plausible but incorrect answer options. Return them as a JSON array of strings.`,
+        },
+      ],
+      temperature: 0.7,
+      response_format: { type: "json_object" },
+    });
+
+    const response = completion.choices[0].message.content;
+    const parsedResponse = JSON.parse(response);
+
+    if (
+      !Array.isArray(parsedResponse.distractors) ||
+      parsedResponse.distractors.length !== 2
+    ) {
+      throw new Error("Invalid response format from OpenAI");
+    }
+
+    res.json({ distractors: parsedResponse.distractors });
+  } catch (error) {
+    console.error("Error generating distractors:", error);
+    res
+      .status(500)
+      .json({ message: "Error generating distractors", error: error.message });
+  }
+});
+
 export default router;

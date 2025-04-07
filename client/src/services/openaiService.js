@@ -29,4 +29,35 @@ export const openaiService = {
       throw error;
     }
   },
+
+  generateDistractors: async (correctAnswer, context) => {
+    try {
+      const response = await fetch(
+        `${API_URL}/flashcards/generate-distractors`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            correctAnswer,
+            context,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to generate distractors");
+      }
+
+      const data = await response.json();
+      return data.distractors;
+    } catch (error) {
+      console.error("Error generating distractors:", error);
+      return ["Incorrect Option 1", "Incorrect Option 2"];
+    }
+  },
 };
+
+export default openaiService;
