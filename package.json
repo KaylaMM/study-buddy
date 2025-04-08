@@ -1,9 +1,8 @@
 {
   "name": "study-buddy",
   "scripts": {
-    "start": "cd server && npm start",
-    "heroku-postbuild": "cd server && npm install",
-    "build": "echo \"Skipping build\" && exit 0"
+    "start": "npm run start --prefix server",
+    "heroku-postbuild": "npm install --prefix server && npm install --prefix client && npm run build --prefix client"
   },
   "engines": {
     "node": "18.x"

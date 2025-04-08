@@ -7,11 +7,10 @@ import "dotenv/config";
 
 const app = express();
 const PORT = process.env.PORT;
-const HEROKU_URL = process.env.HEROKU_URL;
 
 app.use(
   cors({
-    origin: HEROKU_URL,
+    origin: `https://study-buddy-ecru-five.vercel.app`,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   })
