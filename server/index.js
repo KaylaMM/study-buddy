@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 app.use(
   cors({
     origin: [
+      "https://study-buddy-ecru-five.vercel.app",
       "https://study-buddy-m1deu41n7-kaylamms-projects.vercel.app",
       "http://localhost:5173",
     ],
