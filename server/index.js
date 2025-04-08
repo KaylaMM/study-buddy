@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 app.use(
   cors({
-    origin: `https://study-buddy-ecru-five.vercel.app`,
+    origin: `https://study-buddy-git-main-kaylamms-projects.vercel.app`,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   })
