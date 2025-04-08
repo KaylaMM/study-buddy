@@ -1,18 +1,26 @@
 ## StudyBuddy: AI-Powered Flashcards and Study Helper
 
-#### An application that helps users generate, organize, and review flashcards for studying.\*\*
+#### An application that helps users generate, organize, and review flashcards for studying.
 
 StudyBuddy allows you to create flashcards yourself or by leveraging OpenAI’s API to generate flashcards on the topic of your choice and simulate study sessions with an interactive quiz mode.
 
-## Project Screen Shots
+## See it in action!
+
+
+https://github.com/user-attachments/assets/b2ca23fd-081c-4512-a75b-d55ea752b95b
+
+
 
 ## Tech Stack
 
 React
+
 JavaScript
-Sass
+
 Express
+
 Node
+
 MySQL
 
 ## Installation and Setup Instructions
@@ -35,11 +43,11 @@ To Start Client:
 
 To Visit App:
 
-`localhost:5173/`
+`localhost:5173/` or see it live here: https://study-buddy-git-main-kaylamms-projects.vercel.app/ 
 
 ## Reflection
 
-I built this app to help my students bridge the gap between their understanding and the technical language often expected in interviews. Watching them struggle to articulate their thought process—despite grasping the concepts—inspired me to create a simple, practical tool. It’s not just about memorizing jargon; it’s about building confidence by making those terms feel familiar and accessible. Hopefully, it’ll empower them to communicate their skills as clearly as they understand them.
+I built this app to help my students bridge the gap between their understanding and the technical language often expected in interviews. Watching them struggle to articulate their thought process, despite grasping the concepts, inspired me to create a simple, practical tool. It’s not just about memorizing jargon; it’s about building confidence by making those terms feel familiar and accessible. Hopefully, it’ll empower them to communicate their skills as clearly as they understand them.
 
 My goal was to build something that was pretty simple, that gave users the option of creating their own flashcards and using tools like ChatGPT to help generate a deck directly in the app so they can focus on studying.
 
